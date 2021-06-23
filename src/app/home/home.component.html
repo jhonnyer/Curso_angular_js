@@ -1,0 +1,23 @@
+<h1>Página principal</h1>
+
+<!-- ngIf="identificado" verifica si es true,, si el verdadero muestra le mensaje siguiente en el h3, sino es false y muestra la plantilla ng-template noIdentificado -->
+<!-- Condicion if and else para verificar si se cumple una condicion  -->
+<!-- <div *ngIf="identificado; else noIdentificado">
+    <h3>Has sido identificado en la aplicación</h3>
+    <button (click)="unsetIdentificado()">Borrar identificación</button>
+</div> -->
+
+<!-- Condicion if and else con un then para llamar un ng-template si se cumple la condicion y otro ng-template si no se cumple la condicion  mediante el comando then-->
+<div *ngIf="identificado; then siIdentificado else noIdentificado"></div>
+
+<ng-template #siIdentificado>
+    <h3>Has sido identificado en la aplicación</h3>
+    <button (click)="unsetIdentificado()">Borrar identificación</button>
+</ng-template>
+
+<!-- Else en plantilla html  -->
+<ng-template #noIdentificado>
+    <p>No estas identificado en la aplicación. Pulsa este botón para identificarte</p>
+    <button (click)="setIdentificado()">Identificarse</button>
+</ng-template>
+

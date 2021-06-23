@@ -1,0 +1,74 @@
+<h1>{{titulo}}</h1>
+<!-- <ul>
+    <li>Reebook</li>
+    <li>Nike</li>
+    <li>Adidas</li>
+</ul> -->
+<p><input type="text" [(ngModel)]="mi_marca" (blur)="onBlur()" (keyup.enter)="MostrarPalabra()"></p>
+<button (click)="getMarca()">Mostrar marca</button>
+<button (click)="addMarca()">Añadir marca</button>
+
+<p>Nueva marca digitada: <strong>{{mi_marca}}</strong></p>
+
+<p>Compra las zapatillas deportivas de las mejores marcas</p>
+<ul>
+    <li *ngFor="let marca of marcas; let indice=index">{{indice+' - '+marca}}
+        <button (click)="borrarMarca(indice)">Borrar</button>
+    </li>
+    <!-- boton para eliminar una marca  -->
+</ul>
+
+<p>Las zapatillas disponibles en la tienda y su precio son:</p>
+<!-- Vista elementos zapatilla desde el array zapatilla creada en el modelo  -->
+<ul>
+    <li *ngFor="let zap of zapatillas">
+    <!-- mostrar unicamente zapatillas que estan en stock  -->
+        <span [ngStyle]="{'text-decoration': !zap.stock ? 'line-through' : 'none'}">
+                {{zap.nombre}} - 
+                 <!-- directiva ngClass [class.altoPrecio] cuando se cumple la condiccion añade un estillo altoPrecio -->
+                 <!-- REMPLAZAR  -->
+                 <!-- [ngClass]="['fondoRojo','subrayado']" -->
+                 <!-- class="fondoRojo subrayado" -->
+                <strong 
+                    [class.altoPrecio]="zap.precio>=100000"
+                    [ngClass]="{
+                        'fondoRojo': zap.precio>100000,
+                        'subrayado': zap.marca=='Nike'
+                    }" 
+                        >$ {{zap.precio}}
+                </strong>
+        </span>
+
+        <!-- Condicion span oferta  -->
+        <span *ngIf="zap.precio<100000" 
+            [style.background]="zap.precio<100000 ? 'green' :'transparent'"
+            [style.color]="zap.precio<100000 ? 'white' :'black'"
+            > ¡EN OFERTA! 
+        </span>
+    </li>
+</ul>
+
+<p>El color de la mayoria de nuestras zapatillas es: </p>
+<input type="text" [(ngModel)]="color">
+
+<ul [ngSwitch]="color">
+    <li *ngSwitchCase="'yellow'">
+        <!-- El color es el <span style="background: yellow;">Amarillo</span> -->
+        <!-- Con la directiva [ngStyle]="{'property': expression}" -->
+        El color es el <span [ngStyle]="{'background':color}">Amarillo</span> 
+    </li>
+    <li *ngSwitchCase="'green'">
+        <!-- El color es el <span style="background: green;">Verde</span> -->
+        El color es el <span [ngStyle]="{'background':color}">Verde</span> 
+    </li>
+    <li *ngSwitchCase="'blue'">
+        <!-- El color es el <span style="background: blue;">Azul</span> -->
+        El color es el <span [ngStyle]="{'background':color}">Azul</span> 
+    </li>
+    <li *ngSwitchCase="'black'">
+        <!-- El color es el <span style="background: black;">Negro</span> -->
+        El color es el <span [ngStyle]="{
+                                        'background':color, 
+                                        'color':'white'}">Negro</span> 
+    </li>
+</ul>

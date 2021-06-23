@@ -1,0 +1,58 @@
+<!-- carga dato fecha  actual-->
+<p><strong>Carga dato con fecha actual sin filto parametro Date()</strong></p>
+<p>{{fecha}}</p>
+<!-- carga dato fecha con filtro pipe fullDate  con formato mas legible y uppercase para colocar texto en mayuscula-->
+<p><strong>Fecha con filtro pipe fullDate y uppercase para texto en mayúscula</strong></p>
+<p>{{fecha | date:'fullDate' | uppercase }}</p>
+<p><strong>Fecha con filtro pipe dd/MM/yy</strong></p>
+<p>{{fecha | date:'dd/MM/yy'}}</p>
+<p><strong>Texto con filtro pipe lowercase para colocar texto en minúscula</strong></p>
+<p>{{'HOLA MUNDO' | lowercase}}</p>
+<p><strong>Pipe personalizado calculadora</strong></p>
+<p>{{4 | calculadora: 2}}</p>
+<hr>
+
+
+<!-- CREAR USUARIO  -->
+<h2>Crear Usuario</h2>
+
+<form #newUser="ngForm" (ngSubmit)="onSubmit(newUser)">
+    <p>
+        <label for="name">Nombre</label>
+        <!-- [(ngModel)]="new_user.name" indica la propiedad que se pasa por la peticion post del  objeto new_user  -->
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="new_user.name" required>
+        <span *ngIf="name.touched && !name.valid">El nombre no es valido</span>
+    </p>
+
+    <p>
+        <label for="job">Trabajo</label>
+        <!-- [(ngModel)]="new_user.name" indica la propiedad que se pasa por la peticion post del  objeto new_user  -->
+        <input type="text" name="job" #job="ngModel" [(ngModel)]="new_user.job" required>
+        <span *ngIf="job.touched && !job.valid">El campo indicado no es valido</span>
+    </p>
+
+    <input type="submit" value="Guardar Usuario" [disabled]="!newUser.form.valid">
+</form>
+<hr>
+{{new_user.name}}
+<div *ngIf="usuario_guardado">
+    <h2>El usuario guardado es:</h2>
+    <h3>Nombre: {{usuario_guardado.name}}</h3>
+    <h3>Trabajo: {{usuario_guardado.job}}</h3>
+</div>
+
+
+<hr>
+<!-- keyup.enter permite recoger un evento cuando se presiona la tecla enter y llama a la funcion CargarUsuario  -->
+<input type="text" [(ngModel)]="userId" (keyup.enter)="CargarUsuario()">
+
+<!-- cuando el array user no tenga nada, este vacio  -->
+<div *ngIf="!user">
+    Cargando...
+</div>
+<!-- condicion, que permite que solo se muestran los datos si el array user tiene algun dato obtenido de la API -->
+<div *ngIf="user"> 
+    <img src="{{user.avatar}}" alt="imagen" width="200px">
+    <h2>{{user.first_name+' '+user.last_name}}</h2>
+</div>
+

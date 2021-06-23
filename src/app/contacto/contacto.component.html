@@ -1,0 +1,35 @@
+<h2>Contacto</h2>
+<!-- #formContacto="ngForm" convertir en un formulario de angular  -->
+<!-- (ngSubmit)="onSubmit(formContacto)" se pasa la opcion del formulario por la funcion onSubmit para vaciar el formulario una vez se envie los datos con el boton enviar  -->
+<form #formContacto="ngForm" (ngSubmit)="onSubmit(formContacto)">
+    <label for="nombre">Nombre</label><br>
+    <!-- #nombre="ngModel" para convertir en una entrada de angular, permite validacion de formulario  -->
+    <!-- [(ngMode)] permite enviar los datos recogidos en el formulario al objeto creado en este caso usuario y su propiedad nombre -->
+    <!-- required validacion de formulario, campo obligatorio  -->
+    <!-- pattern="[a-zA-Z]+" condicion que permite que entrada unicamente sean letras de la a-z  -->
+    <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="usuario.nombre" required pattern="[a-zA-Z]+"/>
+    <!-- !nombre.valid" si el campo nombre esta vacio  -->
+    <!-- nombre.touched si el campo nombre ha sido tocado.  && significa condicion y   -->
+    <span *ngIf="nombre.touched && !nombre.valid">El nombre es obligatorio</span><br>
+
+    <label for="apellidos">Apellidos</label><br>
+    <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="usuario.apellidos" required pattern="[a-zA-Z]+"/>
+    <span *ngIf="apellidos.touched && !apellidos.valid">Los apellidos son obligatorios</span><br>
+
+    <label for="email">Email</label><br>
+    <input type="email" name="email" #email="ngModel" [(ngModel)]="usuario.email" required/>
+    <span *ngIf="email.touched && !email.valid">El email no es válido</span><br>
+
+    <label for="mensaje">Mensaje</label><br>
+    <textarea name="mensaje" #mensaje="ngModel" [(ngModel)]="usuario.mensaje" required></textarea>
+    <span *ngIf="mensaje.touched && !email.valid">El mensaje es obligatorio</span><br>
+    
+    <!-- [disabled]="!formContacto.form.valid" cuando el formulario no sea valido, deshabilitar la opción de enviar-->
+    <input type="submit" value="Enviar" [disabled]="!formContacto.form.valid">
+</form>
+
+<br>
+<div>Nombre de usuario: {{usuario.nombre}}</div><br>
+<div>Apellidos de usuario: {{usuario.apellidos}}</div><br>
+<div>Correo: {{usuario.email}}</div><br>
+<div>Mensaje: {{usuario.mensaje}}</div><br>

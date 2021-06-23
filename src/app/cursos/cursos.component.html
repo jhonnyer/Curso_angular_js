@@ -1,0 +1,7 @@
+<h1>Componente de cursos</h1>
+<!-- Boton para redirigir a la vista del componente zapatillas  -->
+<button (click)="IrZapatillas()">Ir a zapatillas</button>
+
+<!-- condicion ngIf añadida permite mostrar el mensaje unicamente si existe la propiedad nombre en la url -->
+<h3 *ngIf="nombre">Bienvenido al curso {{nombre}}</h3>
+<h3 *ngIf="id">El usuario tiene el id: {{id}}</h3>
